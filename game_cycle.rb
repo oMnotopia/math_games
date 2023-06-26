@@ -7,9 +7,10 @@ def game_cycle
   lives1 = 1
   lives2 = 1
   until (win_condition.did_someone_win(lives1, lives2))
-    puts "#{@math_questions[0][:question]}"
+    random_num = rand(1..20)
+    puts "#{@math_questions[random_num][:question]}"
     player_answer = gets.chomp
-    unless(@math_questions[0][:answer] == player_answer)
+    unless(@math_questions[random_num][:answer] == player_answer.to_i)
       lives1 -= 1
     end
   end
