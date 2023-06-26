@@ -1,7 +1,6 @@
 # This class will loop through the game sequence and call other class methods as needed.
 require "./win_condition"
 require "./questions"
-require "./turn"
 require "./players"
 
 def game_cycle
@@ -10,7 +9,7 @@ def game_cycle
 
   until (win_condition.did_someone_win(players.player_1_lives, players.player_2_lives))
     turn = players.turn
-    random_num = rand(1..20)
+    random_num = rand(0..19)
     puts "Player #{turn}: #{@math_questions[random_num][:question]}"
     player_answer = gets.chomp
     unless(@math_questions[random_num][:answer] == player_answer.to_i)
@@ -29,10 +28,15 @@ def game_cycle
     else 
       players.turn = 1
     end  
-      
-    puts "P1: #{players.player_1_lives}/3 vs P2: #{players.player_2_lives}/3"
-    puts ""
-    puts "----- NEW TURN -----"
+
+    if(players.player_1_lives == 0)
+      puts "\nPlayer 2 wins with a score of #{players.player_2_lives}/3"
+    elsif (players.player_2_lives == 0)
+      puts "\nPlayer 1 wins with a score of #{players.player_1_lives}/3"
+    else 
+      puts "P1: #{players.player_1_lives}/3 vs P2: #{players.player_2_lives}/3"
+      puts "\n----- NEW TURN -----"
+    end
   end
 end
 
